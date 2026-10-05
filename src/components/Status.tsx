@@ -7,7 +7,7 @@ export function Spinner({ className = "" }: { className?: string }) {
       aria-label="Loading"
       className={`flex items-center justify-center py-16 ${className}`}
     >
-      <span className="h-10 w-10 animate-spin rounded-full border-4 border-white/10 border-t-brand" />
+      <span className="h-10 w-10 animate-spin rounded-full border-4 border-fg/10 border-t-brand" />
     </div>
   );
 }

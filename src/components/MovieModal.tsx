@@ -74,13 +74,13 @@ export function MovieModal({ selectedId, onClose }: MovieModalProps) {
         role="dialog"
         aria-modal="true"
         aria-label={title || "Movie details"}
-        className="relative w-full max-w-3xl overflow-hidden rounded-xl bg-surface-700 shadow-2xl shadow-black ring-1 ring-white/10 animate-pop-in"
+        className="relative w-full max-w-3xl overflow-hidden rounded-xl bg-surface-700 shadow-2xl shadow-black ring-1 ring-fg/10 animate-pop-in"
         onClick={(e) => e.stopPropagation()}
       >
         <button
           onClick={onClose}
           aria-label="Close"
-          className="absolute right-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-black/70 text-lg transition hover:bg-white hover:text-black"
+          className="absolute right-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-black/70 text-lg text-white transition hover:bg-white hover:text-black"
         >
           ✕
         </button>
@@ -119,7 +119,7 @@ export function MovieModal({ selectedId, onClose }: MovieModalProps) {
                   <span className="font-semibold text-green-400">★ {imdbRating} IMDb</span>
                   <span>{year}</span>
                   {hasValue(rated) && (
-                    <span className="rounded border border-white/40 px-1.5 text-xs">{rated}</span>
+                    <span className="rounded border border-fg/40 px-1.5 text-xs">{rated}</span>
                   )}
                   {hasValue(runtime) && <span>{runtime}</span>}
                   {hasValue(totalSeasons) && (
@@ -131,7 +131,7 @@ export function MovieModal({ selectedId, onClose }: MovieModalProps) {
                 {hasValue(genre) && (
                   <ul className="flex flex-wrap gap-2">
                     {genre.split(", ").map((g) => (
-                      <li key={g} className="rounded-full bg-white/10 px-3 py-1 text-xs">
+                      <li key={g} className="rounded-full bg-fg/10 px-3 py-1 text-xs">
                         {g}
                       </li>
                     ))}
@@ -141,7 +141,7 @@ export function MovieModal({ selectedId, onClose }: MovieModalProps) {
             </header>
 
             <section className="space-y-6 px-4 pb-6 sm:px-8 sm:pb-8">
-              <div className="rounded-lg bg-surface-800 p-3 ring-1 sm:p-4 ring-white/5">
+              <div className="rounded-lg bg-surface-800 p-3 ring-1 sm:p-4 ring-fg/5">
                 <p className="mb-3 text-sm text-neutral-400">
                   {watchedMovie
                     ? `In your list — you rated it ${watchedMovie.userRating}/10`

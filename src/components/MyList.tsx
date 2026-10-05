@@ -6,7 +6,7 @@ import { useWatched } from "../contexts/watched";
 
 function Stat({ icon, label, value }: { icon: string; label: string; value: string | number }) {
   return (
-    <div className="rounded-lg bg-surface-700 p-4 ring-1 ring-white/5">
+    <div className="rounded-lg bg-surface-700 p-4 ring-1 ring-fg/5">
       <p className="text-sm text-neutral-400">
         <span aria-hidden>{icon}</span> {label}
       </p>

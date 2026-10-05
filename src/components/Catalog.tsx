@@ -41,7 +41,7 @@ export function CatalogRow({ type, genre }: CatalogProps) {
         </h2>
         <Link
           to={catalogPath(type, genre)}
-          className="text-sm font-semibold text-neutral-400 transition hover:text-white"
+          className="text-sm font-semibold text-neutral-400 transition hover:text-fg"
         >
           See all
           <span className="sr-only">
@@ -79,8 +79,8 @@ export function GenreChips({ type }: { type: TitleType }) {
   const chipClass = ({ isActive }: { isActive: boolean }) =>
     `shrink-0 rounded-full border px-4 py-1.5 text-sm font-medium transition ${
       isActive
-        ? "border-white bg-white text-black"
-        : "border-white/15 text-neutral-300 hover:border-white/40 hover:text-white"
+        ? "border-fg bg-fg text-surface-800"
+        : "border-fg/15 text-neutral-300 hover:border-fg/40 hover:text-fg"
     }`;
 
   return (

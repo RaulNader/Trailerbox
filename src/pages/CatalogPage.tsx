@@ -26,7 +26,7 @@ export default function CatalogPage({ type }: { type: TitleType }) {
       ) : (
         <EmptyState icon="🗂️" title="No such category">
           Pick one of the genres above, or go back to{" "}
-          <Link to={tab.to} className="text-white underline">
+          <Link to={tab.to} className="text-fg underline">
             {tab.label}
           </Link>
           .
