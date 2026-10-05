@@ -3,8 +3,36 @@
 @tailwind utilities;
 
 @layer base {
-  html {
+  :root {
     color-scheme: dark;
+    --surface-900: 11 11 11;
+    --surface-800: 20 20 20;
+    --surface-700: 31 31 31;
+    --surface-600: 42 42 42;
+    --neutral-100: 245 245 245;
+    --neutral-200: 229 229 229;
+    --neutral-300: 212 212 212;
+    --neutral-400: 163 163 163;
+    --neutral-500: 115 115 115;
+    --fg: 255 255 255;
+  }
+
+  :root.light {
+    color-scheme: light;
+    --surface-900: 255 255 255;
+    --surface-800: 244 244 245;
+    --surface-700: 228 228 231;
+    --surface-600: 212 212 216;
+    --neutral-100: 23 23 23;
+    --neutral-200: 38 38 38;
+    --neutral-300: 64 64 64;
+    --neutral-400: 82 82 82;
+    --neutral-500: 115 115 115;
+    --fg: 17 17 17;
+  }
+
+  body {
+    transition: background-color 0.2s, color 0.2s;
   }
 
   body {
@@ -32,7 +60,7 @@
   }
 
   .btn-primary {
-    @apply btn bg-white text-black hover:bg-white/80;
+    @apply btn bg-fg text-surface-800 hover:bg-fg/80;
   }
 
   .btn-brand {
@@ -40,6 +68,6 @@
   }
 
   .btn-ghost {
-    @apply btn bg-white/10 text-white backdrop-blur hover:bg-white/20;
+    @apply btn bg-fg/10 text-fg backdrop-blur hover:bg-fg/20;
   }
 }

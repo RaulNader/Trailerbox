@@ -9,6 +9,7 @@ import {
 import { SEARCH_DEBOUNCE_MS, TABS } from "../config";
 import { useKey } from "../hooks/useKey";
 import { useWatched } from "../contexts/watched";
+import { ThemeToggle } from "./ThemeToggle";
 
 export function NavBar() {
   const { watched } = useWatched();
@@ -26,8 +27,8 @@ export function NavBar() {
     <header
       className={`fixed inset-x-0 top-0 z-40 transition-colors duration-300 ${
         isScrolled
-          ? "bg-surface-900/95 shadow-lg shadow-black/40 backdrop-blur"
-          : "bg-gradient-to-b from-black/80 to-transparent"
+          ? "bg-surface-900/95 shadow-lg shadow-black/20 backdrop-blur"
+          : "bg-gradient-to-b from-surface-900/80 to-transparent"
       }`}
     >
       <nav aria-label="Main" className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-4 gap-y-3 px-4 py-3 sm:px-8 md:gap-x-8 md:py-4">
@@ -47,7 +48,7 @@ export function NavBar() {
                 className={({ isActive }) =>
                   `relative py-1 transition ${
                     isActive
-                      ? "font-bold text-white after:absolute after:inset-x-0 after:-bottom-1 after:h-0.5 after:rounded after:bg-brand"
+                      ? "font-bold text-fg after:absolute after:inset-x-0 after:-bottom-1 after:h-0.5 after:rounded after:bg-brand"
                       : "text-neutral-400 hover:text-neutral-200"
                   }`
                 }
@@ -64,6 +65,7 @@ export function NavBar() {
         </ul>
 
         <Search />
+        <ThemeToggle />
       </nav>
     </header>
   );
@@ -162,13 +164,13 @@ function Search() {
         value={input}
         onChange={handleChange}
         ref={inputEl}
-        className="w-full rounded-md border border-white/15 bg-black/60 py-2 pl-10 pr-9 text-sm text-white placeholder-neutral-400 transition focus:border-white/50 focus:bg-black/80 focus:outline-none"
+        className="w-full rounded-md border border-fg/15 bg-surface-900/60 py-2 pl-10 pr-9 text-sm text-fg placeholder-neutral-400 transition focus:border-fg/50 focus:bg-surface-900/80 focus:outline-none"
       />
       {input && (
         <button
           onClick={handleClear}
           aria-label="Clear search"
-          className="absolute right-2 top-1/2 -translate-y-1/2 rounded px-1.5 text-neutral-400 hover:text-white"
+          className="absolute right-2 top-1/2 -translate-y-1/2 rounded px-1.5 text-neutral-400 hover:text-fg"
         >
           ✕
         </button>
