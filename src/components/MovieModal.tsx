@@ -110,19 +110,18 @@ export function MovieModal({ selectedId, onClose }: MovieModalProps) {
               )}
               <div className="absolute inset-0 bg-gradient-to-t from-surface-700 to-transparent" />
 
-              <Poster
-                src={poster}
-                title={title}
-                className="relative mx-auto w-40 shrink-0 self-start rounded-md shadow-xl ring-1 ring-white/10 sm:mx-0 sm:w-48"
-              />
+              {/* Grows with the text column on wider screens; object-cover trims the sides
+                  instead of stretching, so the poster always ends where the credits end */}
+              <div className="relative mx-auto w-40 shrink-0 overflow-hidden rounded-md shadow-xl ring-1 ring-white/10 sm:mx-0 sm:w-48">
+                <Poster src={poster} title={title} className="h-full w-full object-cover" />
+              </div>
 
               {/* Right column: title, facts, plot and credits, kept compact to fit beside the poster */}
               <div className="relative flex min-w-0 flex-1 flex-col gap-2 sm:pr-8">
                 <h2 className="text-2xl font-extrabold leading-tight sm:text-3xl">{title}</h2>
                 <div className="flex flex-wrap items-center gap-2 text-sm text-neutral-300">
                   <span className="font-semibold text-green-400">★ {imdbRating} IMDb</span>
-                  {/* Full release date when known; it replaces a separate "Released" row */}
-                  <span>{hasValue(released) ? released : year}</span>
+                  <span>{year}</span>
                   {hasValue(rated) && (
                     <span className="rounded border border-fg/40 px-1.5 text-xs">{rated}</span>
                   )}
@@ -147,10 +146,12 @@ export function MovieModal({ selectedId, onClose }: MovieModalProps) {
                     {plot}
                   </p>
                 )}
-                <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 text-sm">
+                {/* mt-auto pins the credits to the poster's bottom edge, however short the text above */}
+                <dl className="mt-auto grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 text-sm">
                   <Credit label="Starring" value={actors} />
                   <Credit label="Director" value={director} />
                   <Credit label="Writer" value={writer} />
+                  <Credit label="Released" value={released} />
                 </dl>
               </div>
             </header>
