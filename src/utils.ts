@@ -7,21 +7,41 @@ export const average = (arr: number[]) =>
 // Responses rarely change, so cache them for the session to save API quota
 const cache = new Map<string, unknown>();
 
+const TIMEOUT_MS = 10_000;
+
+// fetch never gives up on its own, so abort after TIMEOUT_MS (or when the caller aborts)
+async function fetchWithTimeout(url: string, signal?: AbortSignal) {
+  const timeout = AbortSignal.timeout(TIMEOUT_MS);
+  try {
+    return await fetch(url, {
+      signal: signal ? AbortSignal.any([signal, timeout]) : timeout,
+    });
+  } catch (err) {
+    if (err instanceof Error && err.name === "TimeoutError")
+      throw Object.assign(new Error("Request timed out. Please try again"), {
+        cause: err,
+      });
+    throw err;
+  }
+}
+
 export async function fetchOmdb<T>(
   params: Record<string, string | number>,
-  signal?: AbortSignal
+  signal?: AbortSignal,
 ): Promise<T> {
   const search = new URLSearchParams({ apikey: API_KEY });
-  for (const [key, value] of Object.entries(params)) search.set(key, String(value));
+  for (const [key, value] of Object.entries(params))
+    search.set(key, String(value));
   const url = `${API_URL}?${search}`;
   if (cache.has(url)) return cache.get(url) as T;
 
-  const res = await fetch(url, { signal });
+  const res = await fetchWithTimeout(url, signal);
 
   if (!res.ok) throw new Error("Something went wrong while fetching movies");
 
   const data = await res.json();
-  if (data.Response === "False") throw new Error(data.Error || "Movie not found");
+  if (data.Response === "False")
+    throw new Error(data.Error || "Movie not found");
 
   cache.set(url, data);
   return data as T;
@@ -31,7 +51,7 @@ export async function fetchOmdb<T>(
 // Stremio addons take extras as a path segment: /catalog/movie/top/genre=Action&skip=50.json
 export async function fetchCatalog(
   { type, genre, skip = 0 }: { type: TitleType; genre?: string; skip?: number },
-  signal?: AbortSignal
+  signal?: AbortSignal,
 ): Promise<CinemetaMeta[]> {
   const extras = new URLSearchParams();
   if (genre) extras.set("genre", genre);
@@ -40,9 +60,10 @@ export async function fetchCatalog(
   const url = `${CINEMETA_URL}/catalog/${type}/top${extra ? `/${extra}` : ""}.json`;
   if (cache.has(url)) return cache.get(url) as CinemetaMeta[];
 
-  const res = await fetch(url, { signal });
+  const res = await fetchWithTimeout(url, signal);
 
-  if (!res.ok) throw new Error("Something went wrong while loading the catalog");
+  if (!res.ok)
+    throw new Error("Something went wrong while loading the catalog");
 
   const data: { metas?: CinemetaMeta[] } = await res.json();
   const metas = data.metas ?? [];
