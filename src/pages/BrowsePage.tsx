@@ -1,8 +1,8 @@
 import { useOutlet, useSearchParams } from "react-router";
-import { Hero } from "../components/Hero";
+import { FeaturedHero } from "../components/Hero";
 import { SearchResults } from "../components/Browse";
 import { CatalogRow } from "../components/Catalog";
-import { FEATURED_ID, GENRES, MIN_QUERY_LENGTH, TITLE_TYPES } from "../config";
+import { GENRES, MIN_QUERY_LENGTH, TITLE_TYPES } from "../config";
 import type { TitleType } from "../types";
 
 // /movies and /series: one catalog row per genre, or search results when ?q= is set
@@ -37,7 +37,7 @@ export default function BrowsePage({ type }: { type: TitleType }) {
       ) : (
         <>
           <h1 className="sr-only">{typeLabel} by genre</h1>
-          <Hero key={type} featuredId={FEATURED_ID[type]} />
+          <FeaturedHero key={type} type={type} />
           <div className="relative mx-auto -mt-10 max-w-7xl space-y-10 px-4 sm:px-8">
             {/* undefined = the unfiltered "Popular" catalog */}
             {[undefined, ...GENRES[type]].map((genre) => (

@@ -1,14 +1,37 @@
+import { useCatalog } from "../hooks/useCatalog";
 import { useMovieDetails } from "../hooks/useMovieDetails";
+import { FEATURED_ID } from "../config";
+import type { TitleType } from "../types";
 import { hasValue } from "../utils";
 import Poster from "./Poster";
 import { TitleLink } from "./MovieCard";
+
+const HeroSkeleton = () => (
+  <div className="h-[60vh] min-h-[420px] animate-pulse bg-surface-700 md:h-[70vh]" />
+);
+
+// Features the most popular title released this year or last (in cinemas or just out).
+// Cinemeta's Popular catalog is ordered by current popularity, and the Popular row
+// fetches the same page, so this costs no extra request once cached.
+export function FeaturedHero({ type }: { type: TitleType }) {
+  const { items, isLoading, error } = useCatalog(type);
+
+  if (isLoading) return <HeroSkeleton />;
+
+  const thisYear = new Date().getFullYear();
+  const isRecent = (releaseInfo?: string) => parseInt(releaseInfo ?? "", 10) >= thisYear - 1;
+  const featured = items.find((m) => isRecent(m.releaseInfo)) ?? items[0];
+  // Catalog down or empty: fall back to the hand-picked title
+  const featuredId = error || !featured ? FEATURED_ID[type] : featured.imdbID;
+
+  return <Hero key={featuredId} featuredId={featuredId} />;
+}
 
 export function Hero({ featuredId }: { featuredId: string }) {
   const { movie, isLoading, error } = useMovieDetails(featuredId);
 
   if (error) return <div className="h-24" />;
-  if (isLoading || !movie)
-    return <div className="h-[60vh] min-h-[420px] animate-pulse bg-surface-700 md:h-[70vh]" />;
+  if (isLoading || !movie) return <HeroSkeleton />;
 
   const { Title, Year, Genre, Plot, Poster: poster, imdbRating, Type } = movie;
 
