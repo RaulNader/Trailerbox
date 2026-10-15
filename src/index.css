@@ -31,8 +31,11 @@
     --fg: 17 17 17;
   }
 
-  body {
-    transition: background-color 0.2s, color 0.2s;
+  /* Set by useTheme for one frame: hundreds of cards animating their colors at once lag the page */
+  .no-transitions *,
+  .no-transitions *::before,
+  .no-transitions *::after {
+    transition: none !important;
   }
 
   body {
