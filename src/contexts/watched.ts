@@ -12,6 +12,7 @@ export const WatchedContext = createContext<WatchedContextValue | null>(null);
 
 export function useWatched() {
   const context = useContext(WatchedContext);
-  if (!context) throw new Error("useWatched must be used inside <WatchedProvider>");
+  if (!context)
+    throw new Error("useWatched must be used inside <WatchedProvider>");
   return context;
 }
