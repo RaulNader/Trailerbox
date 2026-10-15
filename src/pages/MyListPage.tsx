@@ -7,7 +7,7 @@ export default function MyListPage() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 pt-32 sm:px-8 md:pt-28">
-      {!modal && <title>My List | usePopcorn</title>}
+      {!modal && <title>My List | TrailerBox</title>}
       <MyList filter={searchParams.get("q") ?? ""} />
 
       {/* Details modal (/:id) */}

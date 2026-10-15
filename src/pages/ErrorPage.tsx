@@ -12,13 +12,13 @@ export default function ErrorPage() {
 
   return (
     <div className="px-4 pt-32">
-      <title>Something went wrong | usePopcorn</title>
+      <title>Something went wrong | TrailerBox</title>
       <EmptyState icon="💥" title="Something went wrong">
         {message}
       </EmptyState>
       <div className="flex justify-center">
         <Link to="/movies" reloadDocument className="btn-brand">
-          Reload usePopcorn
+          Reload TrailerBox
         </Link>
       </div>
     </div>

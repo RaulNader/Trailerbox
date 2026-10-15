@@ -1,4 +1,4 @@
-# usePopcorn
+# TrailerBox
 
 Netflix-style movie and series browser built with React 19, TypeScript, Vite, React Router v7 and Tailwind CSS, using the [OMDb API](https://www.omdbapi.com/) for search and title details.
 
