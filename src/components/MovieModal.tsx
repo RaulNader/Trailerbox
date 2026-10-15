@@ -121,7 +121,8 @@ export function MovieModal({ selectedId, onClose }: MovieModalProps) {
                 <h2 className="text-2xl font-extrabold leading-tight sm:text-3xl">{title}</h2>
                 <div className="flex flex-wrap items-center gap-2 text-sm text-neutral-300">
                   <span className="font-semibold text-green-400">★ {imdbRating} IMDb</span>
-                  <span>{year}</span>
+                  {/* Full release date when known; it replaces a separate "Released" row */}
+                  <span>{hasValue(released) ? released : year}</span>
                   {hasValue(rated) && (
                     <span className="rounded border border-fg/40 px-1.5 text-xs">{rated}</span>
                   )}
@@ -146,11 +147,10 @@ export function MovieModal({ selectedId, onClose }: MovieModalProps) {
                     {plot}
                   </p>
                 )}
-                <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-0.5 text-xs">
+                <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 text-sm">
                   <Credit label="Starring" value={actors} />
                   <Credit label="Director" value={director} />
                   <Credit label="Writer" value={writer} />
-                  <Credit label="Released" value={released} />
                 </dl>
               </div>
             </header>
