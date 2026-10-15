@@ -21,6 +21,7 @@ export const TABS: { id: TabId; label: string; to: string }[] = [
   { id: "list", label: "My List", to: "/my-list" },
 ];
 
+// Fallback hero when the Popular catalog can't load
 export const FEATURED_ID: Record<TitleType, string> = {
   movie: "tt0816692", // Interstellar
   series: "tt0903747", // Breaking Bad
