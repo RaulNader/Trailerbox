@@ -78,6 +78,11 @@ export const isAbortError = (err: unknown) =>
 export const errorMessage = (err: unknown) =>
   err instanceof Error ? err.message : String(err);
 
+// OMDb sometimes sends HTML entities, e.g. "O&apos;Connor".
+// DOMParser only parses the text; it never runs scripts or loads anything.
+export const decodeEntities = (text: string) =>
+  new DOMParser().parseFromString(text, "text/html").documentElement.textContent ?? text;
+
 // OMDb uses "N/A" for missing values
 export const hasValue = (value: string | undefined): value is string =>
   !!value && value !== "N/A";

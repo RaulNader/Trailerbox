@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import type { OmdbDetails } from "../types";
-import { errorMessage, fetchOmdb, isAbortError } from "../utils";
+import { decodeEntities, errorMessage, fetchOmdb, isAbortError } from "../utils";
 
 export function useMovieDetails(id: string) {
   const [movie, setMovie] = useState<OmdbDetails | null>(null);
@@ -16,7 +16,13 @@ export function useMovieDetails(id: string) {
           setIsLoading(true);
           setError("");
           const data = await fetchOmdb<OmdbDetails>({ i: id }, controller.signal);
-          setMovie(data);
+          const decoded = Object.fromEntries(
+            Object.entries(data).map(([key, value]) => [
+              key,
+              typeof value === "string" ? decodeEntities(value) : value,
+            ])
+          );
+          setMovie(decoded as OmdbDetails);
         } catch (err) {
           if (!isAbortError(err)) setError(errorMessage(err));
         } finally {
