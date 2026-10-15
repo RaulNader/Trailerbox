@@ -10,6 +10,7 @@ import { SEARCH_DEBOUNCE_MS, TABS } from "../config";
 import { useKey } from "../hooks/useKey";
 import { useWatched } from "../contexts/watched";
 import { ThemeToggle } from "./ThemeToggle";
+import { Logo } from "./Logo";
 
 export function NavBar() {
   const { watched } = useWatched();
@@ -36,8 +37,8 @@ export function NavBar() {
           to="/movies"
           className="flex shrink-0 items-center gap-2 text-xl font-extrabold tracking-tight text-brand sm:text-2xl"
         >
-          <span aria-hidden>🍿</span>
-          <span className="max-[380px]:sr-only">usePopcorn</span>
+          <Logo className="h-7 w-7 sm:h-8 sm:w-8" />
+          <span className="max-[380px]:sr-only">TrailerBox</span>
         </Link>
 
         <ul className="order-last flex w-full gap-6 text-sm font-medium md:order-none md:w-auto">

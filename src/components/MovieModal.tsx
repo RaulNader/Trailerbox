@@ -98,7 +98,7 @@ export function MovieModal({ selectedId, onClose }: MovieModalProps) {
         {!isLoading && !error && title && (
           <article>
             {/* React 19 hoists <title> into <head>; the page behind skips its own while this is open */}
-            <title>{`${title} (${year}) | usePopcorn`}</title>
+            <title>{`${title} (${year}) | TrailerBox`}</title>
             <header className="relative flex flex-col gap-5 overflow-hidden p-4 pt-14 sm:flex-row sm:p-6">
               {hasValue(poster) && (
                 <img

@@ -20,8 +20,8 @@ export default function BrowsePage({ type }: { type: TitleType }) {
       {!modal && (
         <title>
           {isSearching
-            ? `“${query.trim()}” in ${typeLabel} | usePopcorn`
-            : `${typeLabel} by genre | usePopcorn`}
+            ? `“${query.trim()}” in ${typeLabel} | TrailerBox`
+            : `${typeLabel} by genre | TrailerBox`}
         </title>
       )}
 

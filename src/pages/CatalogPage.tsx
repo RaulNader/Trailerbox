@@ -14,7 +14,7 @@ export default function CatalogPage({ type }: { type: TitleType }) {
 
   return (
     <div className="mx-auto max-w-7xl space-y-8 px-4 pt-32 sm:px-8 md:pt-28">
-      {!modal && <title>{`${heading} | usePopcorn`}</title>}
+      {!modal && <title>{`${heading} | TrailerBox`}</title>}
 
       <header className="space-y-6">
         <h1 className="text-3xl font-extrabold sm:text-4xl">{heading}</h1>

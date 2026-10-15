@@ -61,13 +61,13 @@ test("genre catalog page lists titles and opens nested modal", async () => {
 
 test("each page sets its own document title, the modal overrides it", async () => {
   const r = renderAt("/movies/genre/Sci-Fi");
-  await waitFor(() => expect(document.title).toBe("Sci-Fi Movies | usePopcorn"));
+  await waitFor(() => expect(document.title).toBe("Sci-Fi Movies | TrailerBox"));
   expect(screen.getByRole("heading", { level: 1 }).textContent).toBe("Sci-Fi Movies");
   fireEvent.click((await screen.findAllByLabelText("Batman Begins (2005)"))[0]!);
-  await waitFor(() => expect(document.title).toBe("Interstellar (2014) | usePopcorn"));
+  await waitFor(() => expect(document.title).toBe("Interstellar (2014) | TrailerBox"));
   fireEvent.click(await screen.findByLabelText("Close"));
   await waitFor(() => expect(r.state.location.pathname).toBe("/movies/genre/Sci-Fi"));
-  await waitFor(() => expect(document.title).toBe("Sci-Fi Movies | usePopcorn"));
+  await waitFor(() => expect(document.title).toBe("Sci-Fi Movies | TrailerBox"));
 });
 
 test("unknown genre shows a message", async () => {

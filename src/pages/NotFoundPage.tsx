@@ -4,7 +4,7 @@ import { EmptyState } from "../components/Status";
 export default function NotFoundPage() {
   return (
     <div className="px-4 pt-32">
-      <title>Page not found | usePopcorn</title>
+      <title>Page not found | TrailerBox</title>
       <EmptyState icon="🎞️" title="Lost your way?">
         This page doesn't exist.
       </EmptyState>
