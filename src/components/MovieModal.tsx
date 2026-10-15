@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import StarRating from "./StarRating";
 import Poster from "./Poster";
+import { Trailer } from "./Trailer";
 import { ErrorMessage, Spinner } from "./Status";
 import { useKey } from "../hooks/useKey";
 import { useMovieDetails } from "../hooks/useMovieDetails";
+import { useTrailer } from "../hooks/useTrailer";
 import { hasValue } from "../utils";
 import { useWatched } from "../contexts/watched";
 import type { OmdbDetails } from "../types";
@@ -18,6 +20,7 @@ interface MovieModalProps {
 export function MovieModal({ selectedId, onClose }: MovieModalProps) {
   const { watched, addWatched, removeWatched } = useWatched();
   const { movie, isLoading, error } = useMovieDetails(selectedId);
+  const trailerId = useTrailer(selectedId, movie?.Type);
   const watchedMovie = watched.find((m) => m.imdbID === selectedId);
   const [userRating, setUserRating] = useState(watchedMovie?.userRating ?? 0);
 
@@ -96,6 +99,7 @@ export function MovieModal({ selectedId, onClose }: MovieModalProps) {
           <article>
             {/* React 19 hoists <title> into <head>; the page behind skips its own while this is open */}
             <title>{`${title} (${year}) | usePopcorn`}</title>
+            {trailerId && <Trailer youtubeId={trailerId} title={title} />}
             <header className="relative flex flex-col gap-6 overflow-hidden p-4 pt-14 sm:flex-row sm:p-8">
               {hasValue(poster) && (
                 <img
