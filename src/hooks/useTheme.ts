@@ -15,10 +15,16 @@ export function useTheme() {
 
   useEffect(
     function () {
-      document.documentElement.classList.toggle("light", theme === "light");
+      const root = document.documentElement;
+      // Switch colors instantly, then turn transitions back on next frame
+      root.classList.add("no-transitions");
+      root.classList.toggle("light", theme === "light");
+      getComputedStyle(root).getPropertyValue("color"); // force the browser to apply the new colors now
+      const frame = requestAnimationFrame(() => root.classList.remove("no-transitions"));
       document
         .querySelector('meta[name="theme-color"]')
         ?.setAttribute("content", theme === "light" ? "#f4f4f5" : "#141414");
+      return () => cancelAnimationFrame(frame);
     },
     [theme]
   );
