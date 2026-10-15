@@ -70,14 +70,14 @@ export function MovieModal({ selectedId, onClose }: MovieModalProps) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/75 p-2 backdrop-blur-sm animate-fade-in sm:items-center sm:p-8"
+      className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/80 p-2 animate-fade-in sm:items-center sm:p-8"
       onClick={onClose}
     >
       <div
         role="dialog"
         aria-modal="true"
         aria-label={title || "Movie details"}
-        className="relative w-full max-w-3xl overflow-hidden rounded-xl bg-surface-700 shadow-2xl shadow-black ring-1 ring-fg/10 animate-pop-in"
+        className="relative w-full max-w-2xl overflow-hidden rounded-xl bg-surface-700 shadow-2xl shadow-black ring-1 ring-fg/10 animate-pop-in"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -99,7 +99,7 @@ export function MovieModal({ selectedId, onClose }: MovieModalProps) {
           <article>
             {/* React 19 hoists <title> into <head>; the page behind skips its own while this is open */}
             <title>{`${title} (${year}) | usePopcorn`}</title>
-            <header className="relative flex flex-col gap-6 overflow-hidden p-4 pt-14 sm:flex-row sm:p-8">
+            <header className="relative flex flex-col gap-5 overflow-hidden p-4 pt-14 sm:flex-row sm:p-6">
               {hasValue(poster) && (
                 <img
                   src={poster}
@@ -113,11 +113,12 @@ export function MovieModal({ selectedId, onClose }: MovieModalProps) {
               <Poster
                 src={poster}
                 title={title}
-                className="relative mx-auto w-40 shrink-0 rounded-md shadow-xl ring-1 ring-white/10 sm:mx-0 sm:w-48"
+                className="relative mx-auto w-40 shrink-0 self-start rounded-md shadow-xl ring-1 ring-white/10 sm:mx-0 sm:w-48"
               />
 
-              <div className="relative flex flex-col justify-center gap-3">
-                <h2 className="text-2xl font-extrabold leading-tight sm:text-4xl">{title}</h2>
+              {/* Right column: title, facts, plot and credits, kept compact to fit beside the poster */}
+              <div className="relative flex min-w-0 flex-1 flex-col gap-2 sm:pr-8">
+                <h2 className="text-2xl font-extrabold leading-tight sm:text-3xl">{title}</h2>
                 <div className="flex flex-wrap items-center gap-2 text-sm text-neutral-300">
                   <span className="font-semibold text-green-400">★ {imdbRating} IMDb</span>
                   <span>{year}</span>
@@ -140,10 +141,21 @@ export function MovieModal({ selectedId, onClose }: MovieModalProps) {
                     ))}
                   </ul>
                 )}
+                {hasValue(plot) && (
+                  <p className="line-clamp-3 text-sm leading-relaxed text-neutral-200" title={plot}>
+                    {plot}
+                  </p>
+                )}
+                <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-0.5 text-xs">
+                  <Credit label="Starring" value={actors} />
+                  <Credit label="Director" value={director} />
+                  <Credit label="Writer" value={writer} />
+                  <Credit label="Released" value={released} />
+                </dl>
               </div>
             </header>
 
-            <section className="space-y-6 px-4 pb-6 sm:px-8 sm:pb-8">
+            <section className="space-y-4 px-4 pb-4 sm:px-6 sm:pb-6">
               {trailerId && <Trailer youtubeId={trailerId} title={title} />}
 
               <div className="rounded-lg bg-surface-800 p-3 ring-1 sm:p-4 ring-fg/5">
@@ -180,15 +192,6 @@ export function MovieModal({ selectedId, onClose }: MovieModalProps) {
                   </div>
                 </div>
               </div>
-
-              {hasValue(plot) && <p className="leading-relaxed text-neutral-200">{plot}</p>}
-
-              <dl className="grid gap-x-6 gap-y-2 text-sm sm:grid-cols-[auto_1fr]">
-                <Credit label="Starring" value={actors} />
-                <Credit label="Director" value={director} />
-                <Credit label="Writer" value={writer} />
-                <Credit label="Released" value={released} />
-              </dl>
             </section>
           </article>
         )}
