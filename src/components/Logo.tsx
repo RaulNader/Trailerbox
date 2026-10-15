@@ -1,0 +1,12 @@
+// Same mark as public/favicon.svg: a screen with a play button under a clapperboard strip
+export function Logo({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 64 64" className={className} aria-hidden>
+      <rect width="64" height="64" rx="14" fill="#e50914" />
+      <path d="M13 12h38a2 2 0 0 1 2 2v4H11v-4a2 2 0 0 1 2-2z" fill="#fff" />
+      <path d="M20 12h6l-4 6h-6zM34 12h6l-4 6h-6z" fill="#e50914" />
+      <rect x="11" y="21" width="42" height="31" rx="5" fill="#fff" />
+      <path d="M28 29.5v14l12-7z" fill="#e50914" />
+    </svg>
+  );
+}
