@@ -99,7 +99,6 @@ export function MovieModal({ selectedId, onClose }: MovieModalProps) {
           <article>
             {/* React 19 hoists <title> into <head>; the page behind skips its own while this is open */}
             <title>{`${title} (${year}) | usePopcorn`}</title>
-            {trailerId && <Trailer youtubeId={trailerId} title={title} />}
             <header className="relative flex flex-col gap-6 overflow-hidden p-4 pt-14 sm:flex-row sm:p-8">
               {hasValue(poster) && (
                 <img
@@ -117,7 +116,7 @@ export function MovieModal({ selectedId, onClose }: MovieModalProps) {
                 className="relative mx-auto w-40 shrink-0 rounded-md shadow-xl ring-1 ring-white/10 sm:mx-0 sm:w-48"
               />
 
-              <div className="relative flex flex-col justify-end gap-3">
+              <div className="relative flex flex-col justify-center gap-3">
                 <h2 className="text-2xl font-extrabold leading-tight sm:text-4xl">{title}</h2>
                 <div className="flex flex-wrap items-center gap-2 text-sm text-neutral-300">
                   <span className="font-semibold text-green-400">★ {imdbRating} IMDb</span>
@@ -145,6 +144,8 @@ export function MovieModal({ selectedId, onClose }: MovieModalProps) {
             </header>
 
             <section className="space-y-6 px-4 pb-6 sm:px-8 sm:pb-8">
+              {trailerId && <Trailer youtubeId={trailerId} title={title} />}
+
               <div className="rounded-lg bg-surface-800 p-3 ring-1 sm:p-4 ring-fg/5">
                 <p className="mb-3 text-sm text-neutral-400">
                   {watchedMovie

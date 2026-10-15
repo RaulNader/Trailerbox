@@ -13,7 +13,7 @@ export function Trailer({ youtubeId, title }: TrailerProps) {
   });
 
   return (
-    <div className="aspect-video w-full bg-black">
+    <div className="mx-auto aspect-video w-full max-w-xl overflow-hidden rounded-lg bg-black ring-1 ring-fg/10">
       <iframe
         src={`https://www.youtube-nocookie.com/embed/${youtubeId}?${params}`}
         title={`${title} trailer`}
